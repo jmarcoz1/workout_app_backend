@@ -1,10 +1,11 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 
 class Trainee(models.Model):
     name = models.CharField(max_length=200)
-    born_date = models.DateField(editable=True)
+    birth_date = models.DateField(editable=True)
     def __str__(self):
         return self.name
 
@@ -25,6 +26,7 @@ class Exercise(models.Model):
 
 class Set(models.Model):
     intensity = models.SmallIntegerField()
+    comments = models.CharField(max_length=200)
     repetitions = models.SmallIntegerField()
     exerciseId = models.ManyToManyField(Exercise)
     workoutId = models.ForeignKey(Workout, on_delete = models.CASCADE, blank = True, null = True)

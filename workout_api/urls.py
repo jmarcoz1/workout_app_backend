@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import MuscleListApiView
+from rest_framework import routers
+from .views import  TraineeViewSet, WorkoutViewSet, MuscleViewSet, ExerciseViewSet, SetViewSet
+
+router = routers.DefaultRouter()
+
+router.register(r'trainee', TraineeViewSet)
+router.register(r'workout', WorkoutViewSet)
+router.register(r'muscles', MuscleViewSet)
+router.register(r'exercise', ExerciseViewSet)
+router.register(r'set', SetViewSet)
 
 urlpatterns = [
-    path('api/', MuscleListApiView.as_view())
+    path('', include(router.urls))
 ]
