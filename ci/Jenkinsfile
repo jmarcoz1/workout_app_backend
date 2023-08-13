@@ -1,0 +1,23 @@
+pipeline {
+    agent {
+        docker {
+
+        }
+    }
+    stages{
+        stage('first-stage'){
+
+        }
+        stage('second-stage'){
+
+        }
+        stage('third-stage'){
+
+        }
+    }
+    post{
+        always{
+            // cleanWs()
+        }
+    }
+}
