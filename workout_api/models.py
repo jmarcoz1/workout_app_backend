@@ -28,5 +28,7 @@ class Set(models.Model):
     intensity = models.SmallIntegerField()
     comments = models.CharField(max_length=200)
     repetitions = models.SmallIntegerField()
+    is_bodyweight = models.BooleanField()
+    weight = models.DecimalField(max_digits=4,decimal_places=2)
     exerciseId = models.ManyToManyField(Exercise)
     workoutId = models.ForeignKey(Workout, on_delete = models.CASCADE, blank = True, null = True)

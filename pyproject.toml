@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "workout-tracker"
+version = "0.0.1"
+description = "App to track your or your trainees´s workouts"
+authors = [
+    "Jorge Marco <marco.arraez.jorge@gmail.com>",
+]
+
+[tool.poetry.dependencies]
+python = "3.10"
+asgiref = "3.7.2"
+backports.zoneinfo ="0.2.1"
+Django = "4.2.4"
+djangorestframework = "3.14.0"
+pytz = "2023.3"
+sqlparse = "0.4.4"
+typing_extensions = "4.7.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
