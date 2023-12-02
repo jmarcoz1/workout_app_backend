@@ -1,11 +1,11 @@
-from .models import Trainee, Workout, Muscle, Exercise, Set
-from .serializers import TraineeSerializer, WorkoutSerializer, MuscleSerializer, ExerciseSerializer, SetSerializer
+from .models import User, Workout, Muscle, Exercise, Set
+from .serializers import UserSerializer, WorkoutSerializer, MuscleSerializer, ExerciseSerializer, SetSerializer
 from rest_framework import viewsets
 
 
-class TraineeViewSet(viewsets.ModelViewSet):
-    queryset = Trainee.objects.all()
-    serializer_class = TraineeSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):

@@ -27,7 +27,7 @@ class Set(models.Model):
     comments = models.CharField(max_length=200)
     repetitions = models.IntegerField()
     is_bodyweight = models.BooleanField()
-    weight_lifted = models.FloatField(max_digits=4,decimal_places=2)
+    weight_lifted = models.FloatField()
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
 
     def __str__(self):

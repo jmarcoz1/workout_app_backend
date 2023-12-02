@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import  TraineeViewSet, WorkoutViewSet, MuscleViewSet, ExerciseViewSet, SetViewSet
+from .views import  UserViewSet, WorkoutViewSet, MuscleViewSet, ExerciseViewSet, SetViewSet
 
 router = routers.DefaultRouter()
 
-router.register(r'trainee', TraineeViewSet)
+router.register(r'user', UserViewSet)
 router.register(r'workout', WorkoutViewSet)
 router.register(r'muscles', MuscleViewSet)
 router.register(r'exercise', ExerciseViewSet)

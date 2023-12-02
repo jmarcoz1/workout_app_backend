@@ -1,16 +1,16 @@
 from rest_framework import serializers
-from .models import Trainee, Workout, Muscle, Exercise, Set
+from .models import User, Workout, Muscle, Exercise, Set
 
-class TraineeSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Trainee
+        model = User
         fields = ["id", "name", "birth_date"]
 
 
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
-        fields = ["id", "date", "traineeId"]
+        fields = ["id", "date", "user", "sets"]
 
 
 class MuscleSerializer(serializers.ModelSerializer):
@@ -22,10 +22,10 @@ class MuscleSerializer(serializers.ModelSerializer):
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
-        fields = ["id", "name", "involved_muscles"]
+        fields = ["id", "name", "muscle"]
 
 
 class SetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Set
-        fields = ["id", "intensity", "repetitions", "is_bodyweight", "weight", "exerciseId", "workoutId"]
+        fields = ["id", "reps_in_reserve", "repetitions", "is_bodyweight", "weight_lifted", "exercise", "reps_in_reserve"]
