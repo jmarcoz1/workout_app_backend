@@ -3,32 +3,40 @@ from datetime import date
 
 # Create your models here.
 
-class Trainee(models.Model):
+class User(models.Model):
     name = models.CharField(max_length=200)
     birth_date = models.DateField(editable=True)
     def __str__(self):
         return self.name
 
-class Workout(models.Model):
-    date = models.DateField(auto_now_add=True)
-    traineeId = models.ForeignKey(Trainee, on_delete = models.CASCADE, blank = True, null = True)
-
 class Muscle(models.Model):
     name = models.CharField(max_length=100)
+
     def __str__(self):
         return self.name
 
 class Exercise(models.Model):
     name = models.CharField("name of the exercise", max_length=200)
-    involved_muscles = models.ManyToManyField(Muscle)
+    muscle = models.ForeignKey(Muscle, on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.name
 
 class Set(models.Model):
-    intensity = models.SmallIntegerField()
+    reps_in_reserve = models.IntegerField()
     comments = models.CharField(max_length=200)
-    repetitions = models.SmallIntegerField()
+    repetitions = models.IntegerField()
     is_bodyweight = models.BooleanField()
-    weight = models.DecimalField(max_digits=4,decimal_places=2)
-    exerciseId = models.ManyToManyField(Exercise)
-    workoutId = models.ForeignKey(Workout, on_delete = models.CASCADE, blank = True, null = True)
+    weight_lifted = models.FloatField(max_digits=4,decimal_places=2)
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.repetitions} reps of {self.exercise.name}'
+
+class Workout(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    sets = models.ManyToManyField(Set)
+
+    def __str__(self):
+        return f'Workout on {self.date} by {self.user.username}'
