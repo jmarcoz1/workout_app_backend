@@ -5,12 +5,25 @@ from .serializers import UserSerializer, WorkoutSerializer, MuscleSerializer, Ex
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+
+class UserIDView(APIView):
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request, name, format=None):
+        user = get_object_or_404(User, name=name)
+        return Response({'id': user.id})
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
     
     @action(detail=True, methods=['get'])
     def workouts(self, request, pk=None):
@@ -24,6 +37,9 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     serializer_class = WorkoutSerializer
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated]
+    
+    # def get_queryset(self):
+    #     return Workout.objects.filter(user=self.request.user.name)
 
     @action(detail=True, methods=['get'])
     def sets(self, request, pk=None):
@@ -52,7 +68,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     
     @action(detail=True, methods=['get'])
-    def exercise(self, request, pk=None):
+    def sets(self, request, pk=None):
         exercise = self.get_object()
         sets = Set.objects.filter(exercise=exercise)
         serializer = SetSerializer(sets, many=True)
@@ -64,3 +80,6 @@ class SetViewSet(viewsets.ModelViewSet):
     serializer_class = SetSerializer
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        return Workout.objects.filter(user=self.request.user)

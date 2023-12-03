@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import  UserViewSet, WorkoutViewSet, MuscleViewSet, ExerciseViewSet, SetViewSet
+from .views import UserIDView, UserViewSet, WorkoutViewSet, MuscleViewSet, ExerciseViewSet, SetViewSet
 
 router = routers.DefaultRouter()
 
@@ -28,5 +28,6 @@ router.register(r'exercise', ExerciseViewSet)
 router.register(r'set', SetViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('users/<str:name>/id/', UserIDView.as_view()),
 ]
