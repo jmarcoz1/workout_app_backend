@@ -23,7 +23,15 @@ class Exercise(models.Model):
     def __str__(self):
         return self.name
 
+class Workout(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Workout on {self.date} by {self.user.name}'
+
 class Set(models.Model):
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
     reps_in_reserve = models.IntegerField()
     comments = models.CharField(max_length=200)
     repetitions = models.IntegerField()
@@ -33,11 +41,3 @@ class Set(models.Model):
 
     def __str__(self):
         return f'{self.repetitions} reps of {self.exercise.name}'
-
-class Workout(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
-    sets = models.ManyToManyField(Set)
-
-    def __str__(self):
-        return f'Workout on {self.date} by {self.user.username}'

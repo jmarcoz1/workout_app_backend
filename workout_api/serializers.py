@@ -14,19 +14,20 @@ class MuscleSerializer(serializers.ModelSerializer):
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
+    muscle = MuscleSerializer(read_only=True)
     class Meta:
         model = Exercise
         fields = ["id", "name", "muscle"]
 
-
-class SetSerializer(serializers.ModelSerializer):
-    # exercise = serializers.StringRelatedField()
-    class Meta:
-        model = Set
-        fields = ["id", "reps_in_reserve", "repetitions", "is_bodyweight", "weight_lifted", "exercise", "reps_in_reserve"]
-
 class WorkoutSerializer(serializers.ModelSerializer):
-    sets = SetSerializer(many=True)
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Workout
-        fields = ["id", "date", "user", "sets"]
+        fields = ["id", "date", "user"]
+
+class SetSerializer(serializers.ModelSerializer):
+    exercise = ExerciseSerializer(read_only=True)
+    workout = WorkoutSerializer(read_only=True)
+    class Meta:
+        model = Set
+        fields = ["id", "reps_in_reserve", "repetitions", "is_bodyweight", "weight_lifted", "exercise", "reps_in_reserve", "workout"]
